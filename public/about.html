@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ABOUT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-green: #2e7d32;
+      --accent-green: #a5d6a7;
+      --light-green: #d2e8a9;
+      --soft-pink: #ffd1dc;
+      --mint: #c8e6c9;
+      --background-start: #f9f0ff;
+      --text-dark: #1b4512;
+      --text-mid: #365a29;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg,
+        var(--background-start) 0%,
+        var(--soft-pink) 30%,
+        var(--mint) 65%,
+        var(--accent-green) 90%,
+        var(--background-start) 100%);
+      color: var(--text-mid);
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px 5%;
+      border-radius: 0 0 12px 12px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      font-weight: 600;
+      font-size: 17px;
+      text-decoration: none;
+      color: var(--primary-green);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background: var(--accent-green);
+      color: var(--text-dark);
+    }
+
+    .disabled-link {
+      pointer-events: none;
+      color: gray;
+      opacity: 0.6;
+    }
+
+    .a {
+      font-family: 'Merriweather', serif;
+      font-size: 64px;
+      text-align: center;
+      color: var(--primary-green);
+      margin-top: 40px;
+      position: relative;
+    }
+
+    .a::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at center, #c0f0a1 0%, transparent 80%);
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: -1;
+    }
+
+    h1, h2 {
+      font-family: 'Merriweather', serif;
+      text-align: center;
+      color: var(--primary-green);
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-top: 50px;
+    }
+
+    hr.h, hr {
+      width: 80px;
+      height: 5px;
+      border: none;
+      border-radius: 5px;
+      background: var(--accent-green);
+      margin: 30px auto;
+      box-shadow: 0 0 12px var(--accent-green);
+    }
+
+    ol {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding-left: 30px;
+      font-size: 18px;
+      text-align: justify;
+      color: var(--text-mid);
+    }
+
+    ol li {
+      margin-bottom: 1.4em;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 40px 20px;
+    }
+
+    .act-col {
+      background: #e8f4db;
+      border-radius: 12px;
+      padding: 24px 18px;
+      box-shadow: 0 4px 10px rgba(117, 182, 80, 0.15);
+      flex: 1 1 250px;
+      transition: all 0.3s ease;
+      min-width: 250px;
+      max-width: 320px;
+    }
+
+    .act-col:hover {
+      background: var(--light-green);
+      box-shadow: 0 8px 18px rgba(90, 140, 50, 0.3);
+    }
+
+    h3 {
+      font-family: 'Merriweather', serif;
+      font-size: 22px;
+      text-align: center;
+      color: var(--primary-green);
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--text-mid);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .act-col a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 16px;
+      background: #5fb738;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(95, 183, 56, 0.6);
+      transition: background 0.3s ease;
+    }
+
+    .act-col a:hover {
+      background: #3a7d1a;
+      box-shadow: 0 6px 14px rgba(58, 125, 26, 0.8);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      color: var(--text-mid);
+      background: rgba(255, 255, 255, 0.3);
+      margin-top: 60px;
+    }
+/* Small screens (phones) */
+@media screen and (max-width: 600px) {
+  nav {
+    justify-content: center;
+    padding: 10px 5%;
+  }
+
+  nav ul {
+    gap: 16px;
+  }
+
+  nav ul li a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .a {
+    font-size: 40px;
+    margin-top: 30px;
+  }
+
+  h1, h2 {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-top: 40px;
+  }
+
+  ol {
+    font-size: 16px;
+    padding-left: 20px;
+    max-width: 95%;
+    margin-bottom: 30px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 10px;
+  }
+
+  .act-col {
+    min-width: 100%;
+    max-width: 100%;
+    padding: 18px 14px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .act-col a {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 20px 15px;
+  }
+}
+
+/* Medium screens (tablets) */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  nav ul {
+    gap: 22px;
+  }
+
+  nav ul li a {
+    font-size: 15px;
+    padding: 7px 11px;
+  }
+
+  .a {
+    font-size: 52px;
+    margin-top: 35px;
+  }
+
+  h1, h2 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 28px;
+    margin-top: 45px;
+  }
+
+  ol {
+    font-size: 17px;
+    max-width: 90%;
+  }
+
+  .row {
+    gap: 18px;
+    padding: 30px 15px;
+  }
+
+  .act-col {
+    min-width: 45%;
+    max-width: 45%;
+    padding: 22px 16px;
+  }
+
+  h3 {
+    font-size: 21px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  .act-col a {
+    font-size: 15px;
+    padding: 9px 15px;
+  }
+
+  footer {
+    font-size: 13px;
+    padding: 25px 20px;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a class="disabled-link">ABOUT</a></li>
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="registration.html">REGISTER</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <h1 class="a">ABOUT US</h1>
+    <h1>Why this initiative???</h1>
+    <h1>Why is it Important to Take Care of Our Environment?</h1>
+    <hr class="h" />
+
+    <ol>
+      <li><strong>We only have one earth:</strong> Our earth is our only home. If we harm it, we harm ourselves. Protecting nature ensures our own survival and well-being.</li>
+      <li><strong>Clean environment = Healthy life:</strong> A cleaner environment provides clean air, water, and shelter—essentials for health.</li>
+      <li><strong>Climate change is real:</strong> Even minor increases in temperature disrupt seasons and ecosystems.</li>
+      <li><strong>Our actions affect ecosystems:</strong> Pollution, deforestation, and overuse of resources endanger species and balance.</li>
+      <li><strong>Biodiversity matters:</strong> A rich variety of life supports all that we rely on—food, medicine, and climate regulation.</li>
+      <li><strong>Nature provides all:</strong> From wood to food, we depend on what nature offers. We must preserve it to maintain supply.</li>
+      <li><strong>It’s our duty:</strong> Caring for nature is a way to give back for all it gives to us. Gratitude = Action.</li>
+    </ol>
+  </section>
+
+  <section align="center">
+    <h2>WHY? WHAT? HOW? WHEN?</h2>
+    <hr />
+
+    <div class="row">
+      <div class="act-col">
+        <h3>WHY?</h3>
+        <p>To become responsible citizens for the well-being of nature.</p>
+        <p>To commit ourselves to preserving and honoring the environment.</p>
+      </div>
+
+      <div class="act-col">
+        <h3>WHAT?</h3>
+        <p>Understand what environmental responsibility involves.</p>
+        <p>Discover impactful activities you can contribute to.</p>
+      </div>
+
+      <div class="act-col">
+        <h3>HOW?</h3>
+        <p>Adopt eco-friendly habits in daily life.</p>
+        <p>Spread awareness and educate others.</p>
+      </div>
+
+      <div class="act-col">
+        <h3>WHEN?</h3>
+        <p>The best time to act is now.</p>
+        <p>Join green initiatives and make a difference today.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; Environment Awareness Initiative. All rights reserved.
+  </footer>
+
+</body>
+</html>

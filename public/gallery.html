@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-green: #2e7d32;
+      --accent-green: #a5d6a7;
+      --light-green: #d2e8a9;
+      --soft-pink: #ffd1dc;
+      --mint: #c8e6c9;
+      --background-start: #f9f0ff;
+      --text-dark: #1b4512;
+      --text-mid: #365a29;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, var(--background-start), deeppink);
+      color: var(--text-mid);
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px 5%;
+      border-radius: 0 0 12px 12px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+    }
+
+    nav ul li a {
+      font-weight: 600;
+      font-size: 17px;
+      text-decoration: none;
+      color: var(--primary-green);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background: var(--accent-green);
+      color: var(--text-dark);
+    }
+
+    .disabled-link {
+      pointer-events: none;
+      color: gray;
+      opacity: 0.6;
+    }
+
+    input {
+      display: none;
+    }
+
+    .container {
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: normal;
+      font-size: 35px;
+      font-family: 'Merriweather', serif;
+      margin: 40px 0;
+      position: relative;
+      color: var(--primary-green);
+    }
+
+    h1::before {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 3px;
+      background: crimson;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: animate 4s linear infinite;
+    }
+
+    @keyframes animate {
+      0% { width: 100px; }
+      50% { width: 200px; }
+      100% { width: 100px; }
+    }
+
+    .top-content {
+      background: #f3f3f3;
+      width: 90%;
+      margin: 0 auto 20px auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+    }
+
+    h3 {
+      height: 100%;
+      background: lightgray;
+      line-height: 60px;
+      padding: 0 50px;
+      color: white;
+      font-family: 'Merriweather', serif;
+    }
+
+    label {
+      display: inline-block;
+      height: 100%;
+      margin: 0 20px;
+      line-height: 60px;
+      font-size: 18px;
+      color: black;
+      cursor: pointer;
+      transition: color 0.5s;
+    }
+
+    label:hover {
+      color: blue;
+    }
+
+    .photo-gallery {
+      width: 90%;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-gap: 20px;
+    }
+
+    .pic {
+      position: relative;
+      height: 230px;
+      border-radius: 10px;
+    }
+
+    .pic img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .pic::before {
+      content: "PHOTO GALLERY";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      width: 100%;
+      margin-top: -100px;
+      opacity: 0;
+      transition: 0.3s;
+      transition-delay: 0.2s;
+    }
+
+    .pic::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      border-radius: 10px;
+      height: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      transition: 0.3s;
+    }
+
+    .pic:hover::after {
+      height: 100%;
+    }
+
+    .pic:hover::before {
+      margin-top: 0;
+      opacity: 1;
+    }
+
+    #check1:checked ~ .container .photo-gallery .pic,
+    #check2:checked ~ .container .photo-gallery .family,
+    #check3:checked ~ .container .photo-gallery .child,
+    #check4:checked ~ .container .photo-gallery .place {
+      opacity: 1;
+      transform: scale(1);
+      position: relative;
+    }
+
+    #check2:checked ~ .container .photo-gallery .child,
+    #check2:checked ~ .container .photo-gallery .place,
+    #check3:checked ~ .container .photo-gallery .family,
+    #check3:checked ~ .container .photo-gallery .place,
+    #check4:checked ~ .container .photo-gallery .child,
+    #check4:checked ~ .container .photo-gallery .family {
+      opacity: 0;
+      transform: scale(0);
+      position: absolute;
+      transition: 0.5s;
+    }
+   footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      color: var(--text-mid);
+      background: rgba(255, 255, 255, 0.3);
+      margin-top: 60px;
+    }
+/* Responsive styles */
+
+/* Small screens (mobile) */
+@media screen and (max-width: 600px) {
+  nav {
+    justify-content: center;
+    padding: 10px 5%;
+  }
+
+  nav ul {
+    gap: 16px;
+  }
+
+  nav ul li a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  h1 {
+    font-size: 26px;
+    margin: 30px 10px 20px;
+  }
+
+  .top-content {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 5%;
+    gap: 8px;
+  }
+
+  .top-content h3 {
+    padding: 10px 0;
+    font-size: 18px;
+    width: 100%;
+    background: lightgray;
+    text-align: center;
+  }
+
+  label {
+    margin: 0 10px;
+    font-size: 16px;
+    line-height: normal;
+  }
+
+  .photo-gallery {
+    width: 95%;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-gap: 12px;
+  }
+
+  .pic {
+    height: 150px;
+  }
+
+  .pic::before {
+    font-size: 16px;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 20px 10px;
+    margin-top: 40px;
+  }
+}
+
+/* Medium screens (tablets) */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  nav ul li a {
+    font-size: 15px;
+    padding: 7px 11px;
+  }
+
+  h1 {
+    font-size: 30px;
+    margin: 35px 15px 25px;
+  }
+
+  .top-content {
+    width: 95%;
+    height: 55px;
+    padding: 0 20px;
+  }
+
+  .top-content h3 {
+    padding: 0 40px;
+    font-size: 20px;
+  }
+
+  label {
+    font-size: 17px;
+    margin: 0 15px;
+    line-height: 55px;
+  }
+
+  .photo-gallery {
+    width: 90%;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-gap: 16px;
+  }
+
+  .pic {
+    height: 190px;
+  }
+
+  .pic::before {
+    font-size: 18px;
+  }
+
+  footer {
+    font-size: 13px;
+    padding: 25px 15px;
+    margin-top: 50px;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a class="disabled-link">GALLERY</a></li>
+      <li><a href="registration.html">REGISTER</a></li>
+    </ul>
+  </nav>
+
+  <input type="radio" name="photos" id="check1" checked>
+  <input type="radio" name="photos" id="check2">
+  <input type="radio" name="photos" id="check3">
+  <input type="radio" name="photos" id="check4">
+
+  <div class="container">
+    <h1>WELCOME TO THE GALLERY SECTION</h1>
+    <div class="top-content">
+      <h3>PHOTO GALLERY</h3>
+      <label for="check1">All Photos</label>
+      <label for="check2">Posters</label>
+      <label for="check3">Beauty of Nature</label>
+      <label for="check4">Activities</label>
+    </div>
+
+    <div class="photo-gallery">
+      <!-- Place category -->
+      <div class="pic place"><img src="a1.jpg"></div>
+      <div class="pic place"><img src="a2.jpg"></div>
+      <div class="pic place"><img src="a3.jpg"></div>
+      <div class="pic place"><img src="a4.webp"></div>
+      <div class="pic place"><img src="a5.jfif"></div>
+      <div class="pic place"><img src="a6.webp"></div>
+      <div class="pic place"><img src="a7.jpg"></div>
+      <div class="pic place"><img src="a8.jpg"></div>
+      <div class="pic place"><img src="a9.jpg"></div>
+      <div class="pic place"><img src="a10.jfif"></div>
+
+      <!-- Nature/Child category -->
+      <div class="pic child"><img src="n1.jfif"></div>
+      <div class="pic child"><img src="n2.jfif"></div>
+      <div class="pic child"><img src="n3.jfif"></div>
+      <div class="pic child"><img src="n4.jpg"></div>
+      <div class="pic child"><img src="n5.jpg"></div>
+      <div class="pic child"><img src="n6.webp"></div>
+      <div class="pic child"><img src="n7.webp"></div>
+      <div class="pic child"><img src="n8.jpg"></div>
+      <div class="pic child"><img src="n9.webp"></div>
+      <div class="pic child"><img src="n10.jpg"></div>
+
+      <!-- Poster/Family category -->
+      <div class="pic family"><img src="p1.jpg"></div>
+      <div class="pic family"><img src="p2.jpg"></div>
+      <div class="pic family"><img src="p3.jpg"></div>
+      <div class="pic family"><img src="p4.jpg"></div>
+      <div class="pic family"><img src="p5.jpg"></div>
+      <div class="pic family"><img src="p6.jpg"></div>
+      <div class="pic family"><img src="p7.jpg"></div>
+    </div>
+  </div>
+ <footer>
+    &copy; Environment Awareness Initiative. All rights reserved.
+  </footer>
+
+</body>
+</html>

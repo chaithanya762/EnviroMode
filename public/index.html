@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EnviroMode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset and font */
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Josefin Sans', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      margin: 0;
+      padding: 0;
+      font-family: 'Josefin Sans', sans-serif;
+    }
+
+    /* Header with background and overlay */
+    .header {
+      min-height: 100vh;
+      width: 100%;
+      background-image: url('enviro9.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      position: relative; /* for overlay */
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* dark transparent overlay */
+      z-index: 1;
+    }
+
+    /* Dark Mode Navigation */
+nav {
+  display: flex;
+  padding: 15px 5%;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  background-color: #121212; /* Dark background */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  border-radius: 0 0 12px 12px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.nav-links {
+  display: flex;           /* Ensures flex container */
+  justify-content: flex-end; /* Align content to right */
+  flex: 1;
+}
+
+.nav-links ul {
+  display: flex;           /* Flex list for spacing */
+  list-style: none;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 0;              /* Reset padding so spacing is only via gap */
+  position: relative;
+}
+
+.nav-links ul li a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 2;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.nav-links ul li a:hover {
+  background-color: #00ff00;
+  color: #121212;
+}
+
+
+
+a.disabled-link:hover {
+  background-color: transparent !important; /* remove hover background */
+  color: #666 !important; /* keep disabled color */
+  box-shadow: none !important; /* if you have shadows on hover */
+}
+
+/* Style HOME link */
+a.disabled-link {
+  color: springgreen !important;   /* make HOME green */
+  cursor: default;                  /* normal arrow cursor */
+  pointer-events: none;             /* disable clicks and hover */
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Make sure hover works only on other links */
+.nav-links ul li a:not(.disabled-link):hover {
+  background-color: #00ff00;
+  color: #121212;
+}
+
+
+
+
+    
+    /* Text box in header */
+    .text-box {
+      width: 90%;
+      color: white; /* white text */
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+      max-width: 850px;
+    }
+
+    .text-box h1 {
+      font-size: 70px;
+      color: white;
+      animation: greenGlow 3s ease-in-out infinite alternate;
+      margin-bottom: 30px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      line-height: 1.1;
+    }
+
+    .text-box h3 {
+      font-size: 30px;
+      color: white;
+      animation: greenGlow 3s ease-in-out infinite alternate;
+      margin-bottom: 30px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      line-height: 1.1;
+    }
+
+    .text-box p {
+      margin: 15px 0 50px;
+      font-size: 26px;
+      color: white;
+      line-height: 1.6;
+      font-weight: 400;
+      letter-spacing: 0.8px;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Glow animation */
+    @keyframes greenGlow {
+      from {
+        text-shadow:
+          0 0 5px #00ff00,
+          0 0 10px #00ff00,
+          0 0 20px springgreen,
+          0 0 40px springgreen,
+          0 0 60px springgreen;
+      }
+      to {
+        text-shadow:
+          0 0 10px #00ff00,
+          0 0 20px #00ff00,
+          0 0 30px springgreen,
+          0 0 50px springgreen,
+          0 0 70px springgreen;
+      }
+    }
+
+    /* Hero button */
+    .hero-btn {
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      border: 2px solid white;
+      padding: 18px 45px;
+      font-size: 21px;
+      font-weight: 600;
+      background: transparent;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      border-radius: 6px;
+      letter-spacing: 1.1px;
+      box-shadow: 0 0 12px #00ff00;
+    }
+
+    .hero-btn:hover {
+      background: springgreen;
+      border: 2px solid white;
+      color: black;
+      box-shadow: 0 0 20px #00ff00;
+    }
+
+    /* Activities section */
+    .activities {
+      background-color: #021c0b;
+      color: white;
+      padding: 60px 6%;
+      text-align: center;
+    }
+
+    .activities h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: springgreen;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+text-align: center;
+    }
+
+    .activities p {
+      font-size: 20px;
+      margin-bottom: 35px;
+      font-weight: 400;
+      color: white;
+text-align: center;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 45px;
+      flex-wrap: wrap;
+text-align: center;
+    }
+
+    .act-col {
+      flex: 1 1 250px;
+      max-width: 300px;
+      text-align: left;
+      padding: 12px 20px;
+      border: 2px solid springgreen;
+      border-radius: 8px;
+      box-shadow:
+        0 0 8px #00ff00,
+        0 0 20px springgreen;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .act-col:hover {
+      box-shadow:
+        0 0 15px #00ff00,
+        0 0 30px springgreen;
+    }
+
+    .act-col h3 {
+      color: springgreen;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 1.3px;
+      margin-bottom: 12px;
+    }
+
+    .act-col p {
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.4;
+      letter-spacing: 0.8px;
+    }
+
+    /* Counters styles */
+    .counters {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      color: springgreen;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+    }
+
+    .counter {
+      background: #0a2f0a;
+      padding: 25px 40px;
+      border-radius: 10px;
+      box-shadow:
+        0 0 10px springgreen,
+        0 0 25px #00ff00;
+      text-align: center;
+      min-width: 120px;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .counter:hover {
+      box-shadow:
+        0 0 20px #00ff00,
+        0 0 40px springgreen;
+    }
+
+    .counter h3 {
+      font-size: 48px;
+      margin-bottom: 5px;
+      color: springgreen;
+    }
+
+    .counter p {
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+    }
+
+
+    /* Explore heading */
+    .activities > h2 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-top: 30px;
+      margin-bottom: 25px;
+      color: springgreen;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px;
+      padding: 20px 6%;
+      background: transparent;
+      color: white;
+      text-align: center;
+      border-top: 1px solid springgreen;
+    }
+
+    footer h4 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+      color: springgreen;
+    }
+
+    footer address {
+      font-style: normal;
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      letter-spacing: 0.8px;
+      color: white;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 760px) {
+      nav {
+        justify-content: center;
+      }
+      .nav-links ul li {
+        padding: 8px 8px;
+      }
+      .text-box h1 {
+        font-size: 42px;
+      }
+      .text-box p {
+        font-size: 18px;
+      }
+      .hero-btn {
+        padding: 14px 30px;
+        font-size: 17px;
+      }
+      .row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .act-col {
+        max-width: 90%;
+      }
+      .activities > h2 {
+        font-size: 28px;
+      }
+      .counters {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .counter {
+        min-width: auto;
+        width: 80%;
+        margin: 0 auto;
+      }
+    }
+/* Medium tablets (portrait and landscape) */
+@media screen and (max-width: 1024px) {
+  .text-box h1 {
+    font-size: 56px;
+  }
+  .text-box h3 {
+    font-size: 24px;
+  }
+  .text-box p {
+    font-size: 20px;
+  }
+  .hero-btn {
+    padding: 16px 40px;
+    font-size: 19px;
+  }
+  .nav-links ul {
+    gap: 20px;
+  }
+  .activities {
+    padding: 50px 8%;
+  }
+  .act-col {
+    max-width: 280px;
+  }
+}
+
+/* Small laptops and large tablets */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .text-box h1 {
+    font-size: 64px;
+  }
+  .text-box h3 {
+    font-size: 28px;
+  }
+  .text-box p {
+    font-size: 22px;
+  }
+  .hero-btn {
+    padding: 17px 42px;
+    font-size: 20px;
+  }
+  .nav-links ul {
+    gap: 24px;
+  }
+  .activities {
+    padding: 55px 7%;
+  }
+  .act-col {
+    max-width: 300px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <section class="header">
+    <div class="overlay"></div>
+
+    <nav>
+      <div class="nav-links">
+        <ul>
+          <li><a class="disabled-link">HOME</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="registration.html">REGISTER</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="text-box">
+      <h1>EnviroMODE</h1>
+      <h3 align="center">Student community - Vidyavardhaka College of Engineering, Mysore</h3>
+      <p>
+        This organisation is an initiative to protect environment and gather volunteers<br />
+        for a sustainable green tomorrow. Join us to make a difference!
+      </p>
+      <a href="registration.html" class="hero-btn">Join the Movement</a>
+    </div>
+  </section>
+
+  <section class="activities">
+    <h2>EXPLORE OUR INITIATIVES</h2>
+    <p>Discover how EnviroMODE works to preserve the environment.</p>
+    <div class="row">
+      <div class="act-col">
+        <h3 align="center">Cleanups</h3>
+        <p>Organizing local area cleanups to reduce pollution and promote community responsibility.</p>
+      </div>
+      <div class="act-col">
+        <h3 align="center">Tree Planting</h3>
+        <p>Planting native trees to restore habitats and improve air quality.</p>
+      </div>
+      <div class="act-col">
+        <h3 align="center">Workshops</h3>
+        <p>Hosting educational workshops about sustainability and eco-friendly practices.</p>
+      </div>
+    </div>
+
+   <div class="counters">
+      <div class="counter">
+        <h3 data-target="45">0</h3>
+        <p>Trees Planted</p>
+      </div>
+      <div class="counter">
+        <h3 data-target="15">0</h3>
+        <p>Volunteers</p>
+      </div>
+      <div class="counter">
+        <h3 data-target="10">0</h3>
+        <p>Community Cleanups</p>
+      </div>
+    </div>
+
+
+  </section>
+
+  <footer>
+    <h4>CONTACT US</h4>
+    <address>
+      Vidyavardhaka College of Engineering<br />
+      Mysore, Karnataka, India<br />
+      Developer: Chaithanya S<br>
+      Phone: +91-7892862376<br>
+    </address>
+    <p>© EnviroMODE. All rights reserved.</p>
+  </footer>
+ <script>
+    // Counter animation script
+    const counters = document.querySelectorAll(".counter h3");
+
+    counters.forEach(counter => {
+      counter.innerText = "0";
+
+      const updateCounter = () => {
+        const target = +counter.getAttribute("data-target");
+        const current = +counter.innerText;
+        const increment = target < 100 ? 1 : target / 200;
+
+        if (current < target) {
+          counter.innerText = `${Math.min(current + increment, target)}`;
+          setTimeout(updateCounter, 20);
+        } else {
+          counter.innerText = target;
+        }
+      };
+
+      updateCounter();
+    });
+  </script>
+
+</body>
+</html>
