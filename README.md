@@ -2,7 +2,7 @@
 # EnviroMODE
 
 EnviroMODE is a web application focused on environmental awareness and community engagement. It allows users to register for environmental activities, make donations, and share their experience to support green initiatives.
-
+**Best viewed on desktop for optimal layout and experience**
 ---
 
 ## Features
@@ -18,8 +18,6 @@ EnviroMODE is a web application focused on environmental awareness and community
 - **Error Handling:** Proper handling of database connection errors and form submission errors.
 
 ---
-
-**Best viewed on desktop for optimal layout and experience**
 
 ## Tech Stack
 
