@@ -99,60 +99,65 @@ nav {
   color: #121212;
 }
 
- /* Hamburger Icon */
-    .hamburger {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: springgreen;
-      z-index: 1000;
-    }
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: springgreen;
+  z-index: 1000;
+}
 
-    /* Mobile Styles */
-    @media screen and (max-width: 760px) {
-      nav {
-        justify-content: space-between;
-      }
+/* Mobile Styles */
+@media screen and (max-width: 760px) {
+  nav {
+    display: flex; /* ensure flex layout */
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+  }
 
-      .hamburger {
-        display: block;
-      }
+  .hamburger {
+    display: block;
+    margin-left: auto; /* <-- This is key to push it right */
+  }
 
-      .nav-links {
-        position: absolute;
-        top: 65px;
-        right: 5%;
-        background-color: #121212;
-        width: 90%;
-        max-width: 300px;
-        border-radius: 10px;
-        padding: 20px;
-        display: none;
-        flex-direction: column;
-        align-items: flex-start;
-        box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
-        z-index: 999;
-      }
+  .nav-links {
+    position: absolute;
+    top: 65px;
+    right: 5%;
+    background-color: #121212;
+    width: 90%;
+    max-width: 300px;
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
+    z-index: 999;
+  }
 
-      .nav-links ul {
-        flex-direction: column;
-        width: 100%;
-        gap: 12px;
-      }
+  .nav-links ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
 
-      .nav-links ul li {
-        width: 100%;
-      }
+  .nav-links ul li {
+    width: 100%;
+  }
 
-      .nav-links ul li a {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 18px;
-      }
+  .nav-links ul li a {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 18px;
+  }
 
-      .nav-links.show {
-        display: flex;
-      }
+  .nav-links.show {
+    display: flex;
+  }
+}
+
 
 a.disabled-link:hover {
   background-color: transparent !important; /* remove hover background */
@@ -457,6 +462,17 @@ text-align: center;
         margin: 0 auto;
       }
     }
+  /* Override header background image on small screens */
+@media screen and (max-width: 760px) {
+  .header {
+    background-image: url('https://www.fastweb.com/uploads/article_photo/photo/2036160/Simple_Environment.jpeg') !important;
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+
+      
 /* Medium tablets (portrait and landscape) */
 @media screen and (max-width: 1024px) {
   .text-box h1 {
@@ -507,6 +523,18 @@ text-align: center;
   .act-col {
     max-width: 300px;
   }
+  @media screen and (max-width: 760px) {
+  .header {
+    background-image: none !important;
+    background-color: #56ab2f !important; /* fallback solid color */
+  }
+  .text-box h1,
+  .text-box h3 {
+    animation: none !important;
+    text-shadow: none !important;
+  }
+}
+
 }
 
   </style>
@@ -600,7 +628,7 @@ text-align: center;
 
         if (current < target) {
           counter.innerText = `${Math.min(current + increment, target)}`;
-          setTimeout(updateCounter, 20);
+          setTimeout(updateCounter, 50);
         } else {
           counter.innerText = target;
         }
