@@ -16,7 +16,7 @@ EnviroMODE is a web application focused on environmental awareness and community
 - **MongoDB Integration:** Uses Mongoose to store user data securely in MongoDB Atlas.
 - **Environment Variable Configuration:** Uses `dotenv` to securely manage sensitive credentials.
 - **Error Handling:** Proper handling of database connection errors and form submission errors.
-
+**Best viewed on desktop for optimal layout and experience**
 ---
 
 ## Tech Stack
