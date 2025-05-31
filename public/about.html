@@ -190,6 +190,8 @@
       background: rgba(255, 255, 255, 0.3);
       margin-top: 60px;
     }
+
+    
 /* Small screens (phones) */
 @media screen and (max-width: 600px) {
   nav {
@@ -258,6 +260,65 @@
     padding: 20px 15px;
   }
 }
+/* Hamburger Icon */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--primary-green);
+  z-index: 1001;
+}
+
+/* Mobile Nav Styles */
+@media screen and (max-width: 760px) {
+  nav {
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .hamburger {
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 5%;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 300px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.3);
+    z-index: 1000;
+  }
+
+  .nav-links ul {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links li a {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 18px;
+    display: block;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
 
 /* Medium screens (tablets) */
 @media screen and (min-width: 601px) and (max-width: 900px) {
@@ -324,13 +385,15 @@
 <body>
 
   <nav>
-    <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li><a class="disabled-link">ABOUT</a></li>
-      <li><a href="gallery.html">GALLERY</a></li>
-      <li><a href="registration.html">REGISTER</a></li>
-    </ul>
-  </nav>
+  <div class="hamburger">&#9776;</div> <!-- Hamburger Icon -->
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a class="disabled-link">ABOUT</a></li>
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="registration.html">REGISTER</a></li>
+  </ul>
+</nav>
+
 
   <section>
     <h1 class="a">ABOUT US</h1>
@@ -379,6 +442,15 @@
       </div>
     </div>
   </section>
+  <script>
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+  });
+</script>
+
 
   <footer>
     &copy; Environment Awareness Initiative. All rights reserved.
