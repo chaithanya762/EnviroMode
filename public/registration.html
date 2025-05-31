@@ -37,33 +37,50 @@
       }
 
       nav {
-        display: flex;
-        justify-content: flex-end;
         background: rgba(255, 255, 255, 0.85);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         padding: 15px 5%;
         border-radius: 0 0 12px 12px;
+        position: relative;
+        z-index: 1000;
       }
 
-      nav ul {
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 26px;
+        cursor: pointer;
+        color: var(--primary-green);
+        padding: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      .hamburger:hover {
+        transform: scale(1.1);
+      }
+
+      .nav-links {
         display: flex;
         list-style: none;
         gap: 28px;
       }
 
-      nav ul li a {
+      .nav-links li a {
         font-weight: 600;
         font-size: 17px;
         text-decoration: none;
         color: var(--primary-green);
         padding: 8px 12px;
         border-radius: 6px;
-        transition:
-          background 0.3s ease,
-          color 0.3s ease;
+        transition: background 0.3s ease, color 0.3s ease;
       }
 
-      nav ul li a:hover {
+      .nav-links li a:hover {
         background: var(--accent-green);
         color: var(--text-dark);
       }
@@ -74,8 +91,31 @@
         opacity: 0.6;
       }
 
-      button.btn:hover {
-        animation: pulse 1s infinite;
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          right: 5%;
+          background: rgba(255, 255, 255, 0.95);
+          padding: 15px 20px;
+          border-radius: 12px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.show {
+          display: flex;
+        }
+
+        .nav-links li {
+          text-align: right;
+          margin: 8px 0;
+        }
       }
 
       .signup-form {
@@ -144,7 +184,6 @@
 
       input.form-input,
       textarea.form-input,
-      input[type="datetime-local"].form-input,
       input[type="date"].form-input {
         padding: 10px 15px;
         border-radius: 12px;
@@ -156,16 +195,12 @@
       }
 
       input.form-input:hover,
-      textarea.form-input:hover,
-      input[type="datetime-local"]:hover,
-      input[type="date"]:hover {
+      textarea.form-input:hover {
         box-shadow: 0 0 8px #b6efb4c7;
       }
 
       input.form-input:focus,
-      textarea.form-input:focus,
-      input[type="datetime-local"]:focus,
-      input[type="date"]:focus {
+      textarea.form-input:focus {
         border-color: #8dd267;
         outline: none;
         box-shadow: 0 0 12px #b4eb9eaa;
@@ -255,20 +290,18 @@
 
   <body>
     <nav>
-      <ul>
-        <li><a href="index.html">HOME</a></li>
-        <li><a href="about.html">ABOUT</a></li>
-        <li><a href="gallery.html">GALLERY</a></li>
-        <li><a class="disabled-link">REGISTER</a></li>
-      </ul>
+      <div class="nav-container">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+          <li><a class="disabled-link">REGISTER</a></li>
+        </ul>
+      </div>
     </nav>
 
-    <form
-      class="signup-form"
-      action="/register"
-      method="post"
-      autocomplete="off"
-    >
+    <form class="signup-form" action="/register" method="post" autocomplete="off">
       <div class="form-header">
         <h1>BE A PART OF ENVIROMODE</h1>
       </div>
@@ -339,30 +372,9 @@
           <div class="form-group">
             <label class="label-title">Activities to volunteer</label>
             <div>
-              <label
-                ><input
-                  type="checkbox"
-                  name="activities[]"
-                  value="waste_management"
-                />
-                Waste Management</label
-              >
-              <label
-                ><input
-                  type="checkbox"
-                  name="activities[]"
-                  value="planting_trees"
-                />
-                Planting Trees</label
-              >
-              <label
-                ><input
-                  type="checkbox"
-                  name="activities[]"
-                  value="educate_others"
-                />
-                Educate Others</label
-              >
+              <label><input type="checkbox" name="activities[]" value="waste_management" /> Waste Management</label>
+              <label><input type="checkbox" name="activities[]" value="planting_trees" /> Planting Trees</label>
+              <label><input type="checkbox" name="activities[]" value="educate_others" /> Educate Others</label>
             </div>
           </div>
         </div>
@@ -389,9 +401,7 @@
         </div>
 
         <div class="form-group">
-          <label for="experience" class="label-title"
-            >Previous experience with volunteering</label
-          >
+          <label for="experience" class="label-title">Previous experience with volunteering</label>
           <textarea
             id="experience"
             name="experience"
@@ -408,17 +418,23 @@
       </div>
     </form>
 
+    <footer>
+      &copy; Environment Awareness Initiative. All rights reserved.
+    </footer>
+
     <script>
       function updateDonationLabel() {
         var donationRange = document.getElementById("donations");
         var donationLabel = document.getElementById("donation-label");
         donationLabel.innerText = donationRange.value + " Rs";
       }
+
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("show");
+      }
+
       window.onload = updateDonationLabel;
     </script>
-
-    <footer>
-      &copy; Environment Awareness Initiative. All rights reserved.
-    </footer>
   </body>
 </html>
