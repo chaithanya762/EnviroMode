@@ -43,14 +43,18 @@
         border-radius: 0 0 12px 12px;
         position: relative;
         z-index: 1000;
+        width: 100%;
       }
 
       .nav-container {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        width: 100%;
+        position: relative;
       }
 
+      /* Hamburger for mobile */
       .hamburger {
         display: none;
         font-size: 26px;
@@ -58,16 +62,23 @@
         color: var(--primary-green);
         padding: 8px;
         transition: transform 0.3s ease;
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1100;
       }
 
       .hamburger:hover {
-        transform: scale(1.1);
+        transform: translateY(-50%) scale(1.1);
       }
 
+      /* Nav links on desktop */
       .nav-links {
-        display: flex;
+        display: flex !important;
         list-style: none;
         gap: 28px;
+        margin-left: auto; /* pushes links to right */
       }
 
       .nav-links li a {
@@ -106,6 +117,8 @@
           padding: 15px 20px;
           border-radius: 12px;
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+          width: max-content;
+          min-width: 160px;
         }
 
         .nav-links.show {
@@ -300,6 +313,7 @@
         </ul>
       </div>
     </nav>
+
 
     <form class="signup-form" action="/register" method="post" autocomplete="off">
       <div class="form-header">
