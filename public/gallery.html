@@ -159,15 +159,18 @@
       border-radius: 8px;
       gap: 10px;
       padding: 10px;
+      position: relative;
     }
 
-    h3 {
+    .top-content h3 {
       height: 100%;
       background: lightgray;
       line-height: 60px;
       padding: 0 50px;
       color: white;
       font-family: 'Merriweather', serif;
+      flex-shrink: 0;
+      user-select: none;
     }
 
     label {
@@ -178,12 +181,14 @@
       color: black;
       cursor: pointer;
       transition: color 0.5s;
+      user-select: none;
     }
 
     label:hover {
       color: blue;
     }
 
+    /* Photo gallery grid */
     .photo-gallery {
       width: 90%;
       margin: auto;
@@ -196,6 +201,7 @@
       position: relative;
       height: 230px;
       border-radius: 10px;
+      overflow: hidden;
     }
 
     .pic img {
@@ -203,6 +209,7 @@
       height: 100%;
       border-radius: 10px;
       object-fit: cover;
+      display: block;
     }
 
     .pic::before {
@@ -219,6 +226,8 @@
       opacity: 0;
       transition: 0.3s;
       transition-delay: 0.2s;
+      pointer-events: none;
+      user-select: none;
     }
 
     .pic::after {
@@ -242,25 +251,42 @@
       opacity: 1;
     }
 
-    #check1:checked ~ .container .photo-gallery .pic,
-    #check2:checked ~ .container .photo-gallery .family,
-    #check3:checked ~ .container .photo-gallery .child,
-    #check4:checked ~ .container .photo-gallery .place {
+    /* Filter toggling styles */
+    #check1:checked ~ .container .photo-gallery .pic {
       opacity: 1;
       transform: scale(1);
       position: relative;
     }
 
-    #check2:checked ~ .container .photo-gallery .child,
-    #check2:checked ~ .container .photo-gallery .place,
-    #check3:checked ~ .container .photo-gallery .family,
-    #check3:checked ~ .container .photo-gallery .place,
-    #check4:checked ~ .container .photo-gallery .child,
-    #check4:checked ~ .container .photo-gallery .family {
+    #check2:checked ~ .container .photo-gallery .pic.family {
+      opacity: 1;
+      transform: scale(1);
+      position: relative;
+    }
+
+    #check3:checked ~ .container .photo-gallery .pic.child {
+      opacity: 1;
+      transform: scale(1);
+      position: relative;
+    }
+
+    #check4:checked ~ .container .photo-gallery .pic.place {
+      opacity: 1;
+      transform: scale(1);
+      position: relative;
+    }
+
+    #check2:checked ~ .container .photo-gallery .pic.child,
+    #check2:checked ~ .container .photo-gallery .pic.place,
+    #check3:checked ~ .container .photo-gallery .pic.family,
+    #check3:checked ~ .container .photo-gallery .pic.place,
+    #check4:checked ~ .container .photo-gallery .pic.child,
+    #check4:checked ~ .container .photo-gallery .pic.family {
       opacity: 0;
       transform: scale(0);
       position: absolute;
       transition: 0.5s;
+      pointer-events: none;
     }
 
     footer {
@@ -270,6 +296,88 @@
       color: var(--text-mid);
       background: rgba(255, 255, 255, 0.3);
       margin-top: 60px;
+    }
+
+    /* MOBILE STYLES */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 5%;
+        background: white;
+        width: 180px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: none;
+        z-index: 999;
+      }
+
+      .nav-links li {
+        margin-bottom: 15px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      /* Top content adjustments for mobile */
+      .top-content {
+        height: auto;
+        padding: 10px 20px;
+        gap: 0;
+        justify-content: flex-start;
+        position: relative;
+      }
+
+      /* Hide labels by default on mobile */
+      .top-content label {
+        display: none;
+        height: auto;
+        line-height: normal;
+        padding: 8px 12px;
+        background: var(--mint);
+        border-radius: 6px;
+        margin: 8px 0;
+        cursor: pointer;
+        color: var(--primary-green);
+        font-weight: 600;
+      }
+
+      /* Show hamburger toggle for filters inside top-content */
+      .top-content .filter-hamburger {
+        display: block;
+        font-size: 28px;
+        color: var(--primary-green);
+        cursor: pointer;
+        user-select: none;
+        margin-left: 15px;
+        flex-shrink: 0;
+      }
+
+      /* When filter menu active, show labels vertically */
+      .top-content.active label {
+        display: block;
+      }
+
+      /* Adjust h3 on mobile */
+      .top-content h3 {
+        height: auto;
+        line-height: normal;
+        padding: 10px 0;
+        flex-grow: 1;
+        text-align: left;
+        background: lightgray;
+        color: white;
+        border-radius: 6px;
+        padding-left: 15px;
+      }
     }
   </style>
 </head>
@@ -293,8 +401,9 @@
 
   <div class="container">
     <h1>WELCOME TO THE GALLERY SECTION</h1>
-    <div class="top-content">
+    <div class="top-content" id="filterContainer">
       <h3>PHOTO GALLERY</h3>
+      <div class="filter-hamburger" id="filterHamburger">&#9776;</div>
       <label for="check1">All Photos</label>
       <label for="check2">Posters</label>
       <label for="check3">Beauty of Nature</label>
@@ -341,10 +450,19 @@
     &copy; Environment Awareness Initiative. All rights reserved.
   </footer>
 
-  <script>
+ <script>
+    // Hamburger toggle for navigation
     function toggleMenu() {
       document.getElementById('navLinks').classList.toggle('active');
     }
+
+    // Hamburger toggle for filter labels on mobile
+    const filterHamburger = document.getElementById('filterHamburger');
+    const filterContainer = document.getElementById('filterContainer');
+
+    filterHamburger.addEventListener('click', () => {
+      filterContainer.classList.toggle('active');
+    });
   </script>
 </body>
 </html>
